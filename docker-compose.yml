@@ -1,0 +1,48 @@
+
+services:
+  # ─── PostgreSQL Database ───────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: hostelops-db
+    environment:
+      POSTGRES_USER: hostel
+      POSTGRES_PASSWORD: hostelpass
+      POSTGRES_DB: hostelops
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  # ─── Backend (Express API) ────────────────────────
+  backend:
+    build: ./backend
+    container_name: hostelops-backend
+    env_file:
+      - ./backend/.env.docker
+    expose:
+      - "5000"
+    depends_on:
+      - db
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  # ─── Frontend (React + Nginx Reverse Proxy) ───────
+  frontend:
+    build: ./frontend
+    container_name: hostelops-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+    restart: unless-stopped
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  pgdata:
