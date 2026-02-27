@@ -73,27 +73,51 @@ const AdminDashboard = () => {
         }
     };
 
+    const getStatusIcon = (status) => {
+        switch (status) {
+            case 'Pending': return 'schedule';
+            case 'In Progress': return 'autorenew';
+            case 'Resolved': return 'check_circle';
+            default: return 'help';
+        }
+    };
+
     return (
         <div className="page-container">
             <div className="page-header">
-                <h2>Admin Dashboard</h2>
+                <h2>
+                    <span className="icon">dashboard</span>
+                    Admin Dashboard
+                </h2>
             </div>
 
             {/* Stats Cards */}
             <div className="stats-grid">
-                <div className="stat-card">
+                <div className="stat-card stat-total">
+                    <div className="stat-icon">
+                        <span className="icon">assignment</span>
+                    </div>
                     <div className="stat-number">{stats.total}</div>
                     <div className="stat-label">Total Complaints</div>
                 </div>
                 <div className="stat-card stat-pending">
+                    <div className="stat-icon">
+                        <span className="icon">pending_actions</span>
+                    </div>
                     <div className="stat-number">{stats.pending}</div>
                     <div className="stat-label">Pending</div>
                 </div>
                 <div className="stat-card stat-progress">
+                    <div className="stat-icon">
+                        <span className="icon">engineering</span>
+                    </div>
                     <div className="stat-number">{stats.inProgress}</div>
                     <div className="stat-label">In Progress</div>
                 </div>
                 <div className="stat-card stat-resolved">
+                    <div className="stat-icon">
+                        <span className="icon">task_alt</span>
+                    </div>
                     <div className="stat-number">{stats.resolved}</div>
                     <div className="stat-label">Resolved</div>
                 </div>
@@ -120,7 +144,8 @@ const AdminDashboard = () => {
                     ))}
                 </select>
                 <button className="btn btn-secondary btn-sm" onClick={clearFilters}>
-                    Clear Filters
+                    <span className="icon" style={{ fontSize: '16px' }}>filter_list_off</span>
+                    Clear
                 </button>
             </div>
 
@@ -130,8 +155,11 @@ const AdminDashboard = () => {
                 <div className="loading">Loading complaints...</div>
             ) : complaints.length === 0 ? (
                 <div className="empty-state">
+                    <div className="empty-icon">
+                        <span className="icon">search_off</span>
+                    </div>
                     <h3>No complaints found</h3>
-                    <p>No complaints match the selected filters.</p>
+                    <p>No complaints match the selected filters. Try adjusting your criteria.</p>
                 </div>
             ) : (
                 <div className="table-container">
@@ -151,11 +179,16 @@ const AdminDashboard = () => {
                         <tbody>
                             {complaints.map((complaint, index) => (
                                 <tr key={complaint.id}>
-                                    <td>{index + 1}</td>
+                                    <td style={{ fontWeight: 600, color: 'var(--color-text-secondary)' }}>{index + 1}</td>
                                     <td>
                                         <div className="student-info">
-                                            <span className="student-name">{complaint.user?.name}</span>
-                                            <span className="student-email">{complaint.user?.email}</span>
+                                            <div className="student-avatar">
+                                                {complaint.user?.name?.charAt(0) || '?'}
+                                            </div>
+                                            <div className="student-details">
+                                                <span className="student-name">{complaint.user?.name}</span>
+                                                <span className="student-email">{complaint.user?.email}</span>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
@@ -169,10 +202,19 @@ const AdminDashboard = () => {
                                     </td>
                                     <td>
                                         <span className={`badge ${getStatusClass(complaint.status)}`}>
+                                            <span className="icon" style={{ fontSize: '13px' }}>
+                                                {getStatusIcon(complaint.status)}
+                                            </span>
                                             {complaint.status}
                                         </span>
                                     </td>
-                                    <td>{new Date(complaint.created_at).toLocaleDateString()}</td>
+                                    <td style={{ color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
+                                        {new Date(complaint.created_at).toLocaleDateString('en-IN', {
+                                            day: 'numeric',
+                                            month: 'short',
+                                            year: 'numeric',
+                                        })}
+                                    </td>
                                     <td>
                                         <select
                                             className="status-select"

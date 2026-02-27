@@ -12,7 +12,13 @@ const SubmitComplaint = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const categories = ['Electrical', 'Plumbing', 'Internet', 'Cleaning', 'Other'];
+    const categories = [
+        { value: 'Electrical', icon: 'electrical_services' },
+        { value: 'Plumbing', icon: 'plumbing' },
+        { value: 'Internet', icon: 'wifi' },
+        { value: 'Cleaning', icon: 'cleaning_services' },
+        { value: 'Other', icon: 'more_horiz' },
+    ];
     const priorities = ['Low', 'Medium', 'High'];
 
     const handleChange = (e) => {
@@ -48,14 +54,20 @@ const SubmitComplaint = () => {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h2>Submit a Complaint</h2>
+                <h2>
+                    <span className="icon">edit_note</span>
+                    Submit a Complaint
+                </h2>
             </div>
 
             <div className="form-card">
                 {error && <div className="alert alert-error">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="category">
+                            <span className="icon">category</span>
+                            Category
+                        </label>
                         <select
                             id="category"
                             name="category"
@@ -65,12 +77,15 @@ const SubmitComplaint = () => {
                         >
                             <option value="">Select a category</option>
                             {categories.map((cat) => (
-                                <option key={cat} value={cat}>{cat}</option>
+                                <option key={cat.value} value={cat.value}>{cat.value}</option>
                             ))}
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="priority">Priority</label>
+                        <label htmlFor="priority">
+                            <span className="icon">flag</span>
+                            Priority
+                        </label>
                         <select
                             id="priority"
                             name="priority"
@@ -83,7 +98,10 @@ const SubmitComplaint = () => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">
+                            <span className="icon">description</span>
+                            Description
+                        </label>
                         <textarea
                             id="description"
                             name="description"
@@ -96,10 +114,18 @@ const SubmitComplaint = () => {
                     </div>
                     <div className="form-actions">
                         <button type="button" className="btn btn-secondary" onClick={() => navigate('/dashboard')}>
+                            <span className="icon">close</span>
                             Cancel
                         </button>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? 'Submitting...' : 'Submit Complaint'}
+                            {loading ? (
+                                <>Submitting...</>
+                            ) : (
+                                <>
+                                    <span className="icon">send</span>
+                                    Submit Complaint
+                                </>
+                            )}
                         </button>
                     </div>
                 </form>

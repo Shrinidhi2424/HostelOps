@@ -47,4 +47,31 @@ const getMyComplaints = async (req, res, next) => {
     }
 };
 
-module.exports = { createComplaint, getMyComplaints };
+const deleteComplaint = async (req, res, next) => {
+    try {
+        const complaint = await Complaint.findByPk(req.params.id);
+
+        if (!complaint) {
+            return res.status(404).json({ message: 'Complaint not found.' });
+        }
+
+        // Only the owner can delete their own complaint
+        if (complaint.user_id !== req.user.id) {
+            return res.status(403).json({ message: 'You can only delete your own complaints.' });
+        }
+
+        // Only allow deletion if status is Pending
+        if (complaint.status !== 'Pending') {
+            return res.status(400).json({ message: 'Only pending complaints can be deleted.' });
+        }
+
+        await complaint.destroy();
+
+        res.status(200).json({ message: 'Complaint deleted successfully.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = { createComplaint, getMyComplaints, deleteComplaint };
+

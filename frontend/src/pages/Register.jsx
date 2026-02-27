@@ -56,13 +56,19 @@ const Register = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <h1>HostelOps</h1>
+                    <div className="auth-logo">
+                        <span className="icon" style={{ fontSize: '28px', color: 'white' }}>person_add</span>
+                    </div>
+                    <h1>DormDesk</h1>
                     <p>Create a new account</p>
                 </div>
                 {error && <div className="alert alert-error">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Full Name</label>
+                        <label htmlFor="name">
+                            <span className="icon">person</span>
+                            Full Name
+                        </label>
                         <input
                             id="name"
                             type="text"
@@ -74,7 +80,10 @@ const Register = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">
+                            <span className="icon">mail</span>
+                            Email
+                        </label>
                         <input
                             id="email"
                             type="email"
@@ -87,7 +96,10 @@ const Register = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="block">Hostel Block (Optional)</label>
+                            <label htmlFor="block">
+                                <span className="icon">domain</span>
+                                Hostel Block
+                            </label>
                             <input
                                 id="block"
                                 type="text"
@@ -98,7 +110,10 @@ const Register = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="room">Room (Optional)</label>
+                            <label htmlFor="room">
+                                <span className="icon">meeting_room</span>
+                                Room
+                            </label>
                             <input
                                 id="room"
                                 type="text"
@@ -110,7 +125,10 @@ const Register = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">
+                            <span className="icon">lock</span>
+                            Password
+                        </label>
                         <input
                             id="password"
                             type="password"
@@ -122,7 +140,10 @@ const Register = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <label htmlFor="confirmPassword">
+                            <span className="icon">lock</span>
+                            Confirm Password
+                        </label>
                         <input
                             id="confirmPassword"
                             type="password"
@@ -134,7 +155,14 @@ const Register = () => {
                         />
                     </div>
                     <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-                        {loading ? 'Creating Account...' : 'Register'}
+                        {loading ? (
+                            <>Creating Account...</>
+                        ) : (
+                            <>
+                                <span className="icon">how_to_reg</span>
+                                Register
+                            </>
+                        )}
                     </button>
                 </form>
                 <p className="auth-footer">
