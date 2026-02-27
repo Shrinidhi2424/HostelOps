@@ -1505,108 +1505,11 @@ body {
 }
 
 /* ==========================================
-   Responsive
-   ========================================== */
-@media (max-width: 768px) {
-  .navbar-container {
-    gap: 16px;
-  }
-
-  .navbar-links {
-    gap: 2px;
-  }
-
-  .user-details,
-  .user-avatar {
-    display: none;
-  }
-
-  .main-content {
-    padding: 20px 16px;
-  }
-
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .page-header h2 {
-    font-size: 1.35rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .stat-card {
-    padding: 20px;
-  }
-
-  .stat-number {
-    font-size: 2rem;
-  }
-
-  .filters-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .filters-bar::before {
-    display: none;
-  }
-
-  .filters-bar select {
-    width: 100%;
-  }
-
-  .auth-card {
-    padding: 32px 24px;
-  }
-
-  .table {
-    font-size: 0.8rem;
-  }
-
-  .table th,
-  .table td {
-    padding: 12px 14px;
-  }
-
-  .form-card {
-    padding: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .page-header h2 {
-    font-size: 1.2rem;
-  }
-
-  .auth-card {
-    padding: 28px 20px;
-  }
-
-  .complaints-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==========================================
    Complaint Cards (Student Dashboard)
    ========================================== */
 .complaints-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
 }
 
@@ -1670,6 +1573,7 @@ body {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 .complaint-card__desc {
@@ -1731,7 +1635,149 @@ body {
   cursor: not-allowed;
 }
 
+/* ==========================================
+   Responsive – Comprehensive Mobile Support
+   ========================================== */
+
+/* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
+
+  /* Navbar — compact */
+  .navbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .navbar-container {
+    gap: 8px;
+  }
+
+  .navbar-brand {
+    font-size: 1.15rem;
+  }
+
+  .navbar-links {
+    gap: 2px;
+  }
+
+  .navbar-links a {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Hide link text, show icons only on small screens */
+  .navbar-links a span:not(.icon) {
+    display: inline;
+  }
+
+  .user-details {
+    display: none;
+  }
+
+  .btn-logout span:not(.icon) {
+    display: none;
+  }
+
+  .btn-logout {
+    padding: 7px 10px;
+  }
+
+  /* Main Content */
+  .main-content {
+    padding: 20px 16px;
+  }
+
+  /* Page Header — stack vertically */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .page-header h2 {
+    font-size: 1.35rem;
+  }
+
+  .page-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Form — single column */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 24px 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Stats Grid — 2 columns */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  .stat-icon {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 12px;
+  }
+
+  .stat-icon .icon {
+    font-size: 18px;
+  }
+
+  /* Filters Bar — stack */
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 16px;
+  }
+
+  .filters-bar::before {
+    display: none;
+  }
+
+  .filters-bar select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* Table — horizontal scroll */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 700px;
+    font-size: 0.8rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 14px;
+  }
+
+  /* Complaint Cards — single column */
   .complaints-grid {
     grid-template-columns: 1fr;
   }
@@ -1743,5 +1789,187 @@ body {
 
   .complaint-card__badges {
     align-self: flex-start;
+  }
+
+  /* Delete Button — touch-friendly */
+  .btn-delete {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+
+  /* Auth — handled separately by auth-responsive above */
+  .auth-card {
+    padding: 32px 24px;
+  }
+
+  /* Empty State */
+  .empty-state {
+    padding: 48px 20px;
+  }
+}
+
+/* ── Small Phone (≤ 480px) ── */
+@media (max-width: 480px) {
+
+  /* Navbar — icons only */
+  .navbar-links a {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+
+  .navbar-links a span:not(.icon) {
+    display: none;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .btn-logout {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+
+  /* Main Content */
+  .main-content {
+    padding: 16px 12px;
+  }
+
+  /* Page Header */
+  .page-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .page-header h2 .icon {
+    font-size: 22px;
+  }
+
+  /* Stats — single column */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  /* Complaint Cards */
+  .complaint-card {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .complaint-card__category {
+    font-size: 0.88rem;
+  }
+
+  .complaint-card__desc {
+    font-size: 0.82rem;
+  }
+
+  .complaint-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 12px;
+  }
+
+  .btn-delete {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
+
+  /* Form Card */
+  .form-card {
+    padding: 20px 16px;
+  }
+
+  /* Auth */
+  .auth-card {
+    padding: 28px 20px;
+  }
+
+  /* Badges — slightly smaller */
+  .badge {
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+
+  /* Empty State */
+  .empty-state {
+    padding: 40px 16px;
+  }
+
+  .empty-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .empty-icon .icon {
+    font-size: 26px;
+  }
+
+  .empty-state h3 {
+    font-size: 1.05rem;
+  }
+
+  .empty-state p {
+    font-size: 0.82rem;
+  }
+}
+
+/* ── Ultra-Small (≤ 360px) ── */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 0 10px;
+    height: 50px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .navbar-brand .icon {
+    display: none;
+  }
+
+  .main-content {
+    padding: 12px 10px;
+  }
+
+  .page-header h2 {
+    font-size: 1.05rem;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+  }
+
+  .complaint-card {
+    padding: 14px;
+  }
+
+  .form-card {
+    padding: 18px 14px;
+  }
+
+  .auth-card {
+    padding: 24px 16px;
+  }
+
+  .btn-auth {
+    padding: 12px 16px;
+    font-size: 0.88rem;
   }
 }
