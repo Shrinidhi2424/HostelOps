@@ -16,7 +16,7 @@ services:
 
   # ─── Backend (Express API) ────────────────────────
   backend:
-    build: ./backend
+    image: 378591035436.dkr.ecr.ap-south-1.amazonaws.com/namespace/hostelops-backend:latest
     container_name: hostelops-backend
     env_file:
       - ./backend/.env.docker
@@ -30,7 +30,7 @@ services:
 
   # ─── Frontend (React + Nginx Reverse Proxy) ───────
   frontend:
-    build: ./frontend
+    image: 378591035436.dkr.ecr.ap-south-1.amazonaws.com/namespace/hostelops-frontend:latest
     container_name: hostelops-frontend
     ports:
       - "80:80"

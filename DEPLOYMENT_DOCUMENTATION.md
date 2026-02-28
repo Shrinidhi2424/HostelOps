@@ -91,7 +91,7 @@ services:
     restart: unless-stopped
 
   backend:
-    build: ./backend
+    image: 378591035436.dkr.ecr.ap-south-1.amazonaws.com/namespace/hostelops-backend:latest
     container_name: hostelops-backend
     env_file:
       - ./backend/.env.docker
@@ -104,7 +104,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    image: 378591035436.dkr.ecr.ap-south-1.amazonaws.com/namespace/hostelops-frontend:latest
     container_name: hostelops-frontend
     ports:
       - "80:80"
@@ -124,6 +124,8 @@ volumes:
 
 **Key decisions:**
 
+- **ECR Images:** Both `backend` and `frontend` services pull pre-built images from Amazon ECR (`378591035436.dkr.ecr.ap-south-1.amazonaws.com/namespace/hostelops-backend:latest` and `hostelops-frontend:latest` respectively). This means images are built by CI/CD and stored in ECR, not built locally on the EC2 instance.
+- **`env_file`:** The `backend` service loads environment variables from `./backend/.env.docker` via `env_file`.
 - **`expose` vs `ports`:** The backend uses `expose: "5000"`, making the port visible only to other containers on `appnet`. The frontend uses `ports: "80:80"`, mapping to the host. This ensures the API is only reachable through Nginx.
 - **Named volume `pgdata`:** Persists database data across container restarts. Survives `docker compose down`; only destroyed with `docker compose down -v`.
 - **`restart: unless-stopped`:** Containers auto-restart on crash or EC2 reboot. Only an explicit `docker stop` prevents restart.
